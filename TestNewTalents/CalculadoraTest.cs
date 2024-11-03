@@ -4,15 +4,15 @@ namespace TestNewTalents;
 
 public class CalculadoraTest
 {
+    private Calculadora calculadora = new();
+
     [Theory]
     [InlineData(1, 2, 3)]
     [InlineData(4, 5, 9)]
     [InlineData(52, 84, 136)]
     public void Somar(int number1, int number2, int expected)
     {
-        Calculadora calc = new();
-
-        int result = calc.Somar(number1, number2);
+        int result = calculadora.Somar(number1, number2);
 
         Assert.Equal(expected, result);
     }
@@ -23,9 +23,7 @@ public class CalculadoraTest
     [InlineData(52, 84, -32)]
     public void Subtrair(int number1, int number2, int expected)
     {
-        Calculadora calc = new();
-
-        int result = calc.Subtrair(number1, number2);
+        int result = calculadora.Subtrair(number1, number2);
 
         Assert.Equal(expected, result);
     }
@@ -36,9 +34,7 @@ public class CalculadoraTest
     [InlineData(52, 84, 4368)]
     public void Multiplicar(int number1, int number2, int expected)
     {
-        Calculadora calc = new();
-
-        int result = calc.Multiplicar(number1, number2);
+        int result = calculadora.Multiplicar(number1, number2);
 
         Assert.Equal(expected, result);
     }
@@ -49,9 +45,7 @@ public class CalculadoraTest
     [InlineData(420, 84, 5)]
     public void Dividir(int number1, int number2, int expected)
     {
-        Calculadora calc = new();
-
-        int result = calc.Dividir(number1, number2);
+        int result = calculadora.Dividir(number1, number2);
 
         Assert.Equal(expected, result);
     }
@@ -59,21 +53,19 @@ public class CalculadoraTest
     [Fact]
     public void TestarDivisaoPorZero()
     {
-        Calculadora calc = new();
-
-        Assert.Throws<DivideByZeroException>(() => calc.Dividir(3, 0));
+        Assert.Throws<DivideByZeroException>(() => calculadora.Dividir(3, 0));
     }
 
     [Fact]
     public void TestarHistorico()
     {
-        Calculadora calc = new();
-
-        calc.Somar(1, 2);
-        calc.Somar(2, 44);
-        calc.Somar(2, 25);
-        calc.Somar(4, 22);
-        var historico = calc.Historico();
+        calculadora = new();
+        
+        calculadora.Somar(1, 2);
+        calculadora.Somar(2, 44);
+        calculadora.Somar(2, 25);
+        calculadora.Somar(4, 22);
+        var historico = calculadora.Historico();
 
         Assert.NotEmpty(historico);
         Assert.Equal(3, historico.Count);
